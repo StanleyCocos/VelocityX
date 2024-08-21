@@ -1,4 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:velocity_x/src/extensions/double_ext.dart';
+import 'package:velocity_x/src/extensions/int_ext.dart';
 import 'package:velocity_x/src/extensions/web3_ext.dart';
 
 void main() {
@@ -45,5 +47,27 @@ void main() {
       final value = VxWeb3.toGWei(fromEther: 0.001);
       expect(BigInt.from(1000000), value);
     });
+  });
+
+  test('int thousandsSeparator', () {
+    int? a;
+    expect('12,345,678', 12345678.thousandsSeparator());
+    expect('1,024', 1024.thousandsSeparator());
+    expect('11', 11.thousandsSeparator());
+    expect('0', 0.thousandsSeparator());
+    expect('', a.thousandsSeparator());
+    expect('-1,024', (-1024).thousandsSeparator());
+    expect('-11', (-11).thousandsSeparator());
+  });
+
+  test('double thousandsSeparator', () {
+    int? a;
+    expect('12,345,678.1024', 12345678.1024.thousandsSeparator());
+    expect('1,024.123456', 1024.123456.thousandsSeparator());
+    expect('11.000011', 11.000011.thousandsSeparator());
+    expect('0', 0.thousandsSeparator());
+    expect('', a.thousandsSeparator());
+    expect('-1,024.00001024', (-1024.00001024).thousandsSeparator());
+    expect('-11.11', (-11.11).thousandsSeparator());
   });
 }
